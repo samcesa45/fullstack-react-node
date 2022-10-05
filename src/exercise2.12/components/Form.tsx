@@ -6,7 +6,6 @@ type IForm={
 }
 const Form=({onChange,search}:IForm)=>{
     return(
-        
             <div>
                 <label htmlFor="countries">Find Countries</label>
                 <input  
@@ -16,7 +15,6 @@ const Form=({onChange,search}:IForm)=>{
                 onChange={(event)=>onChange(event)}
                 />
             </div>
-        
     )
 }
 

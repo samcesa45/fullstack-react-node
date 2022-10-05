@@ -9,17 +9,12 @@ type ICountry={
 const FilterCountry=({countries,search,showCountry}:ICountry)=>{
     let filteredName = countries.filter(country=> country.name.toLowerCase().includes(search.toLowerCase()))
    
-   
     let displayCountry = filteredName.map((country)=>(
-        <li key={country.name}>{country.name} 
-        
-        <button className="px-2 rounded border" id={country.name} onClick={(event)=>showCountry(event)}>show</button>
+        <li className="my-4 " key={country.name}>{country.name} 
+        <button className="ml-3 px-2 rounded border text-white bg-blue-500" id={country.name} onClick={(event)=>showCountry(event)}>show</button>
         </li>
       ))
 
-        
-    
-    
 
     if(filteredName.length > 10) {
         return <p>Too many matches, specify another filter</p>;
@@ -30,7 +25,9 @@ const FilterCountry=({countries,search,showCountry}:ICountry)=>{
     }
     return(
         <section>
+            <ul className="my-2">
              {displayCountry}
+            </ul>
         </section>
     )
 }

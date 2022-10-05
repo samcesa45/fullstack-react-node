@@ -42,3 +42,38 @@ export type Countries={
     flag:string
 
 }
+ type IWind={
+    speed:number,
+    degree:number
+}
+export type IWeather={
+    // id:number,
+    // main:string,
+    description:string,
+    icon:string
+}
+
+type IMain={
+    temp:  number,
+    // feels_like:  number,
+    // temp_min:  number,
+    // temp_max:  number,
+    // pressure: number,
+    humidity: number
+}
+type ISystem={
+    type:number,
+    id:number,
+    country:string,
+    sunrise:number,
+    sunset:number
+}
+
+export type WeatherProps={
+weather:IWeather[],
+main:IMain,
+wind:IWind,
+sys:ISystem,
+name:string,
+id:number
+}
