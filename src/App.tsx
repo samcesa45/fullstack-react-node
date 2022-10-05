@@ -1,9 +1,10 @@
 
 
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Note from './components/Note'
 import {Notes} from './types/types'
+import noteService from './services/notes'
+
 type IApp={
     notesData : Notes[]
 }
@@ -15,35 +16,45 @@ const App=()=>{
      const [showAll,setShowAll] = useState(true)
 
      useEffect(()=>{
-        axios.get('http://localhost:3001/notes')
-        .then(response=> {
-            console.log(response.data);
-            
-            setNotes(response.data)
+        noteService.getAll()
+        .then(initialNotes=> {
+            setNotes(initialNotes)
         })
         .catch(err=> console.error(err))
      },[])
      
 
      const notesToShow = showAll ? notes : notes.filter(note => note.important)
-
+     
+     const toggleImportanceOf=(id:number)=>{
+        //const url=`http://localhost:3001/notes/${id}`
+        const note = notes.find(n=>n.id === id)
+        const updatedNote = {...note,important:! note?.important}
+        noteService.update(id,updatedNote).then(returnedNote=>{
+            setNotes(notes.map(n=>n.id !== id ? n : returnedNote) )
+        })
+        .catch(error=>{
+            alert(`the note '${note?.content}' was already deleted from server`)
+            setNotes(notes.filter(n=>n.id !== id))
+        })
+     }
 
      const addNote=(event:React.FormEvent<HTMLFormElement>)=>{
         event.preventDefault()
         if(!newNote) return;
         const newNotesObject = {
-            id: notes.length + 1,
+            // id: notes.length + 1,
             content: newNote,
             date: new Date().toISOString(),
             important: false
           }
-          axios.post('http://localhost:3001/notes',newNotesObject)
-          .then(response => {
-            setNotes([...notes,response.data])
+          noteService.create(newNotesObject)
+          .then(returnedNote => {
+            setNotes([...notes,returnedNote])
             setNewNote('')
         })
           .catch(err=>console.error(err))
-        //  setNotes([...notes,newNotesObject])
+        
      }
 
     return (
@@ -70,7 +81,7 @@ const App=()=>{
         <ul>
             {
                 notesToShow.map((note) =>(
-                   <Note note={note} key={note.id}/>
+                   <Note note={note} key={note.id} toggleImportance={()=>toggleImportanceOf(note.id)}/>
 
                 ))
             }

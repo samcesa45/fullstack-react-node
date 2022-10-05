@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { IPersons } from "../../types/types"
+
 type IPerson ={
-    name:string,
-    number:string
+    search:string,
+    persons:IPersons[],
+    onRemovePerson:(id:string)=>void
    
 }
-const Person=({name,number}:IPerson)=>{
-   
+const Person=({search,persons,onRemovePerson}:IPerson)=>{
+    let filteredPerson = persons
+    if(search){
+        filteredPerson = filteredPerson.filter(person=> person.name.toLowerCase().includes(search.toLowerCase()) )
+    }
+   const displayPersons = filteredPerson && filteredPerson.map(person => (
+                <li key={person.id}>{person.name} {person.number} 
+                <button 
+                    className="bg-red-400 text-white rounded px-1 border" 
+                    onClick={()=>onRemovePerson(person.id)}>delete
+                </button>
+            </li>
+   ))
   
     return(
-        <li>{name} {number}</li>
+       <ul>{displayPersons}</ul>
     )
 }
 

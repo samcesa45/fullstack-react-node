@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
-import App from './exercise2.12/App'
+import App from './exercise 2/App'
 import reportWebVitals from './reportWebVitals';
 
 

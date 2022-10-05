@@ -1,11 +1,16 @@
+import React from "react"
+
 type IFormProps={
-    newName:string,
-    onNameChange:(e:React.ChangeEvent<HTMLInputElement>)=>void,
-    newNumber:string
-    onAddPerson:(event: React.FormEvent<HTMLFormElement>) => void,
-    onNumberChange:(e:React.ChangeEvent<HTMLInputElement>)=>void
+  newName:string,
+  newNumber:string,
+  onAddNumber:(event:React.ChangeEvent<HTMLInputElement>)=>void,
+  onAddName:(event:React.ChangeEvent<HTMLInputElement>)=>void,
+  onAddPerson:(event:React.FormEvent<HTMLFormElement>)=>void
 }
-const Form=({onAddPerson,newName,newNumber,onNameChange,onNumberChange}:IFormProps)=>{
+const Form=({newName,newNumber,onAddName,onAddNumber,onAddPerson}:IFormProps)=>{
+    
+
+
     return(
         <form className='shadow  p-4  mx-auto' onSubmit={(event)=>onAddPerson(event)}>
                 <div>
@@ -16,7 +21,7 @@ const Form=({onAddPerson,newName,newNumber,onNameChange,onNumberChange}:IFormPro
                     name="names" 
                     id="names"
                     value={newName}
-                    onChange={(e)=>onNameChange(e)}
+                    onChange={(event)=>onAddName(event)}
                      />
                 </div>
                 <div>
@@ -27,7 +32,7 @@ const Form=({onAddPerson,newName,newNumber,onNameChange,onNumberChange}:IFormPro
                     name="number" 
                     id="number"
                     value={newNumber}
-                    onChange={(e)=>onNumberChange(e)}
+                    onChange={(event)=>onAddNumber(event)}
                      />
                 </div>
                 <div>
