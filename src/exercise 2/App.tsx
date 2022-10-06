@@ -5,11 +5,17 @@ import FilterInput from "./components/FilterInput";
 import Form from "./components/Form";
 import personService from './services/person'
 import { IPersons } from "../types/types";
+import Notification from "./components/Notifications";
 const App=()=>{
     const [persons,setPersons] = useState<IPersons[]>([])
     const [search,setSearch] = useState('')
     const [newName,setNewName] = useState('')
     const [newNumber,setNewNumber] = useState('')
+    const [messages,setMessages] = useState({
+        error:'',
+        success:''
+    })
+  
 
     const handleNameChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
         setNewName(event.target.value)
@@ -48,21 +54,53 @@ const App=()=>{
            name:newName,
            number:newNumber
         }
+        if(newName.length === 0 || newNumber.length === 0) return;
         if(person){
             if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
                 personService.update(id!,newPersonObject)
                 .then(returnedPerson=>{ 
                     setPersons(persons.map(person=>person.id !== id ? person : returnedPerson))
-                }).catch(err=>console.error(err))
+                    
+                    setMessages({...messages, error:'',success:`Updated ${newName}`})
+
+                setTimeout(()=>{
+                      setMessages({...messages,error:'',success:''})
+                },2000)
+                    
+                    setNewName('')
+                    setNewNumber('')
+                }).catch(err=>{
+                    setMessages({error:` '${person.name}' could not be updated`,success:''})
+
+                    setTimeout(()=>{
+                          setMessages({error:'',success:''})
+                    },2000)
+                })
             }
         }
         
        else{
+        const id = persons.find(person=> person.name === newName)?.id
             personService.create(newPersonObject)
             .then(returnedPerson=>{
                 setPersons([...persons,returnedPerson])
+
+                setMessages({...messages, error:'',success:`Added ${newName}`})
+
+                setTimeout(()=>{
+                      setMessages({...messages,error:'',success:''})
+                },2000)
+                setNewName('')
+                setNewNumber('')
             })
-            .catch(err=>console.error(err))
+            .catch(err=>{
+               
+                setMessages({...messages, error:`person with the id ${id} could not be added`,success:''})
+
+                    setTimeout(()=>{
+                          setMessages({...messages, error:'',success:''})
+                    },2000)
+            })
         }
         
         
@@ -76,6 +114,18 @@ const App=()=>{
              personService.deletePerson(id)
              .then(returnedPerson=>{
                  setPersons(persons.filter(person=>person.id !== id))
+                 setMessages({...messages, error:'',success:`${newName} Deleted successful`})
+
+                setTimeout(()=>{
+                      setMessages({...messages,error:'',success:''})
+                },2000)
+             }).catch(error=>{
+                
+                setMessages({...messages, error:` ${person?.name}  and ${person?.number} could not be removed`,success:''})
+
+                setTimeout(()=>{
+                      setMessages({...messages,error:'',success:''})
+                },2000)
              })
 
          }
@@ -86,6 +136,8 @@ const App=()=>{
     return (
         <div className="text-center">
             <h2 className="font-bold text-center text-2xl my-3">Phonebook</h2>
+            
+             <Notification messages={messages}/>
             <FilterInput 
                 onFilterChange={handleFilterChange} 
                 search={search}

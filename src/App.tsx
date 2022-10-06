@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import Note from './components/Note'
 import {Notes} from './types/types'
 import noteService from './services/notes'
+import Notification from './components/Notification'
+import Footer from './components/Footer'
 
 type IApp={
     notesData : Notes[]
@@ -14,6 +16,7 @@ const App=()=>{
      const [notes,setNotes] = useState<Notes[]>([])
      const [newNote,setNewNote] = useState('')
      const [showAll,setShowAll] = useState(true)
+     const [errorMessage,setErrorMessage] = useState<string | null>(null)
 
      useEffect(()=>{
         noteService.getAll()
@@ -30,11 +33,16 @@ const App=()=>{
         //const url=`http://localhost:3001/notes/${id}`
         const note = notes.find(n=>n.id === id)
         const updatedNote = {...note,important:! note?.important}
+        
         noteService.update(id,updatedNote).then(returnedNote=>{
-            setNotes(notes.map(n=>n.id !== id ? n : returnedNote) )
+            setNotes(notes.map(note=>note.id !== id ? note : returnedNote) )
         })
         .catch(error=>{
-            alert(`the note '${note?.content}' was already deleted from server`)
+            setErrorMessage(`Note '${note?.content}' was already removed from server`)
+
+            setTimeout(()=>{
+                setErrorMessage(null)
+            },2000)
             setNotes(notes.filter(n=>n.id !== id))
         })
      }
@@ -60,7 +68,7 @@ const App=()=>{
     return (
     <div>
         <h1 className='font-bold text-2xl my-3'>Notes</h1>
-        
+         <Notification message={errorMessage}/>
         <div>
             <button className='border px-2 py-1 my-4' 
             onClick={()=>setShowAll(!showAll)}
@@ -86,6 +94,8 @@ const App=()=>{
                 ))
             }
         </ul>
+
+        <Footer/>
        
     </div>
     )
@@ -96,22 +106,3 @@ export default App
 
 
 
-// import Course from "./components/Course"
-// import { ICourses } from "./types/types"
-
-
-// type IApp={
-//     courses:ICourses
-// }
- 
-
-
-// const App=({courses}:IApp)=>{
-   
-//         return (
-//         <Course courses={courses}/>
-//         )
-//     }
-    
-    
-// export default App
