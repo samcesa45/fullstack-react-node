@@ -134,8 +134,8 @@ const App=()=>{
         
     }
     return (
-        <div className="text-center">
-            <h2 className="font-bold text-center text-2xl my-3">Phonebook</h2>
+        <div className="border box-border px-3 shadow bg-gray-700 text-white rounded py-4 my-24 mx-auto sm:w-[40vw] lg:w-[40vw]">
+            <h2 className="font-bold text-center text-4xl my-3 text-blue-500">Phonebook</h2>
             
              <Notification messages={messages}/>
             <FilterInput 
@@ -151,7 +151,7 @@ const App=()=>{
              onAddPerson={HandleSubmitPerson}
            
             />
-            <h2 className="font-bold text-xl my-3">Numbers</h2>
+            <h2 className="font-bold text-2xl my-3 text-center text-blue-500">Mobile Numbers And Name Details</h2>
             
             <Person 
             search={search} 

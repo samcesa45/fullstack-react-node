@@ -3,13 +3,13 @@
 import React, { useEffect, useState } from 'react'
 import Note from './components/Note'
 import {Notes} from './types/types'
-import noteService from './services/notes'
+import {noteService} from './services/notes'
 import Notification from './components/Notification'
 import Footer from './components/Footer'
 
-type IApp={
-    notesData : Notes[]
-}
+// type IApp={
+//     notesData : Notes[]
+// }
 
 const App=()=>{
     //  const initialnotes = notesData 
@@ -20,16 +20,14 @@ const App=()=>{
 
      useEffect(()=>{
         noteService.getAll()
-        .then(initialNotes=> {
-            setNotes(initialNotes)
-        })
+        .then(initialNotes=> setNotes(initialNotes))
         .catch(err=> console.error(err))
      },[])
      
 
      const notesToShow = showAll ? notes : notes.filter(note => note.important)
      
-     const toggleImportanceOf=(id:number)=>{
+     const toggleImportanceOf=(id:string)=>{
         //const url=`http://localhost:3001/notes/${id}`
         const note = notes.find(n=>n.id === id)
         const updatedNote = {...note,important:! note?.important}

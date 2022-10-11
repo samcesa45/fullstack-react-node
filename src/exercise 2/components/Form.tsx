@@ -12,11 +12,11 @@ const Form=({newName,newNumber,onAddName,onAddNumber,onAddPerson}:IFormProps)=>{
 
 
     return(
-        <form className='shadow  p-4  mx-auto' onSubmit={(event)=>onAddPerson(event)}>
-                <div>
-                    <label className="mr-3" htmlFor="names">Name</label>
+        <form className='' onSubmit={(event)=>onAddPerson(event)}>
+                <div className='grid' >
+                    <label className="mr-3 mb-3 text-xl" htmlFor="names">Name</label>
                     <input 
-                    className="border  mb-4 rounded px-2 py-1 focus:ring focus:outline-none" 
+                    className="border text-white text-xl font-semibold bg-gray-600 border-gray-600 mb-4 rounded px-2 py-1 focus:ring focus:outline-none" 
                     type="text" 
                     name="names" 
                     id="names"
@@ -24,10 +24,10 @@ const Form=({newName,newNumber,onAddName,onAddNumber,onAddPerson}:IFormProps)=>{
                     onChange={(event)=>onAddName(event)}
                      />
                 </div>
-                <div>
-                    <label className="mr-2" htmlFor="number">Number</label>
+                <div className='grid'>
+                    <label className="mr-2 mb-3 text-xl" htmlFor="number">Mobile Number</label>
                     <input 
-                    className="border  rounded px-2 py-1 focus:ring focus:outline-none" 
+                    className="border text-white text-xl font-semibold bg-gray-600 border-gray-600 mb-4 rounded px-2 py-1 focus:ring focus:outline-none" 
                     type="number" 
                     name="number" 
                     id="number"
@@ -35,8 +35,8 @@ const Form=({newName,newNumber,onAddName,onAddNumber,onAddPerson}:IFormProps)=>{
                     onChange={(event)=>onAddNumber(event)}
                      />
                 </div>
-                <div>
-                    <button className="border my-2  px-4 rounded py-1 bg-blue-500 text-white" type="submit">add</button>
+                <div className='grid'>
+                    <button className="border my-2  border-blue-500 uppercase px-4 rounded py-1 bg-blue-500 text-white" type="submit">add</button>
                 </div>
             </form>
     )

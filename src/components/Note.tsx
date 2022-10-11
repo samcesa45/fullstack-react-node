@@ -2,7 +2,7 @@ import { Notes } from "../types/types"
 
 type INote={
     note:Notes,
-    toggleImportance:(id:number)=>void
+    toggleImportance:(id:string)=>void
 }
 const Note =({note,toggleImportance}:INote)=>{
   const label = note.important ? 'make not important' : 'make important'
