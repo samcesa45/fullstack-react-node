@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import FilterInput from "./components/FilterInput";
 import Form from "./components/Form";
 import personService from './services/person'
-import { IPersons } from "../types/types";
+import { IError, IPersons } from "../types/types";
 import Notification from "./components/Notifications";
 const App=()=>{
     const [persons,setPersons] = useState<IPersons[]>([])
@@ -93,13 +93,13 @@ const App=()=>{
                 setNewName('')
                 setNewNumber('')
             })
-            .catch(err=>{
-               
-                setMessages({...messages, error:`person with the id ${id} could not be added`,success:''})
+            .catch((err:IError)=>{
+                console.log(err.response.data.error);
+                setMessages({...messages, error:`${err.response.data.error}`,success:''})
 
                     setTimeout(()=>{
                           setMessages({...messages, error:'',success:''})
-                    },2000)
+                    },10000)
             })
         }
         

@@ -77,3 +77,7 @@ sys:ISystem,
 name:string,
 id:number
 }
+
+export type IError={
+  response:{data:{error:string}}
+}

@@ -18,7 +18,7 @@ const Notification=({messages}:IProps)=> {
 
     if(messages.success) {
         return (
-        <li className="my-2 border-2 w-[50%] mx-auto p-2 bg-gray-100 border-green-400">
+        <li className="my-2 border-2  p-2 bg-gray-100 border-green-400">
             {messages.success}
         </li>
         )
@@ -26,7 +26,7 @@ const Notification=({messages}:IProps)=> {
    
     if(messages.error){
         return(
-        <li className="text-red-500 w-[50%] mx-auto my-2 border-2 p-2 bg-gray-100 border-red-400">
+        <li className="text-red-500   my-2 border border-red-500 rounded p-2 bg-gray-300">
             {messages.error}
         </li>
             
@@ -36,9 +36,9 @@ const Notification=({messages}:IProps)=> {
 
 
     return (
-    <p>
+    <ul className="grid">
        {messages.success || messages.error}  
-    </p>
+    </ul>
     )
 
 }
