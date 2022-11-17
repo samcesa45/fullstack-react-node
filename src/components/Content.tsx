@@ -1,4 +1,4 @@
-import { IParts } from "../types/types"
+
 
 type IContent={
    name:string,

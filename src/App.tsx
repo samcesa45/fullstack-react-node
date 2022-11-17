@@ -7,12 +7,10 @@ import {noteService} from './services/notes'
 import Notification from './components/Notification'
 import Footer from './components/Footer'
 
-// type IApp={
-//     notesData : Notes[]
-// }
+
 
 const App=()=>{
-    //  const initialnotes = notesData 
+    
      const [notes,setNotes] = useState<Notes[]>([])
      const [newNote,setNewNote] = useState('')
      const [showAll,setShowAll] = useState(true)
@@ -28,9 +26,9 @@ const App=()=>{
      const notesToShow = showAll ? notes : notes.filter(note => note.important)
      
      const toggleImportanceOf=(id:string)=>{
-        //const url=`http://localhost:3001/notes/${id}`
+
         const note = notes.find(n=>n.id === id)
-        const updatedNote = {...note,important:! note?.important}
+        const updatedNote = {...note,important:!note?.important}
         
         noteService.update(id,updatedNote).then(returnedNote=>{
             setNotes(notes.map(note=>note.id !== id ? note : returnedNote) )
@@ -49,7 +47,6 @@ const App=()=>{
         event.preventDefault()
         if(!newNote) return;
         const newNotesObject = {
-            // id: notes.length + 1,
             content: newNote,
             date: new Date().toISOString(),
             important: false
