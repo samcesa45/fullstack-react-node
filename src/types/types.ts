@@ -81,3 +81,10 @@ id:number
 export type IError={
   response:{data:{error:string}}
 }
+
+export type User = {
+    username:string,
+    name:string,
+    password:string,
+    token:string
+}
