@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Note from './components/Note'
 import {Notes, User} from './types/types'
 import {noteService} from './services/notes'
@@ -10,17 +10,19 @@ import { loginService } from './services/login'
 import NoteForm from './components/NoteForm'
 import Togglable from './components/Togglable'
 
-
+type toggleVisibilityProps = {
+    toggleVisibility:() => void
+} 
 
 const App=()=>{
     
      const [notes,setNotes] = useState<Notes[]>([])
-     const [newNote,setNewNote] = useState('')
      const [showAll,setShowAll] = useState(true)
      const [errorMessage,setErrorMessage] = useState<string | null>(null)
      const [username, setUsername] = useState('')
      const [password, setPassword] = useState('')
      const [user,setUser] = useState<User | null>(null)
+     const noteFormRef = useRef<null | toggleVisibilityProps>(null)
      
      useEffect(()=>{
         noteService.getAll()
@@ -58,26 +60,19 @@ const App=()=>{
         })
      }
 
-     const addNote=(event:React.FormEvent<HTMLFormElement>)=>{
-        event.preventDefault()
-        if(!newNote) return;
-        const newNotesObject = {
-            content: newNote,
-            date: new Date().toISOString(),
-            important: false
-          }
-          noteService.create(newNotesObject)
-          .then(returnedNote => {
+     const addNote= async (noteObject:object)=>{
+        try {
+            if(noteFormRef.current){
+                noteFormRef.current.toggleVisibility()
+            }
+            const returnedNote = await noteService.create(noteObject)
             setNotes([...notes,returnedNote])
-            setNewNote('')
-        })
-          .catch(err=>console.error(err))
-        
+        } catch (exception) {
+            console.error(exception);  
+        }
+          
      }
 
-     const handleNoteChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
-        setNewNote(event.target.value)
-     } 
 
      const handleNameChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
        setUsername(event.target.value)
@@ -136,11 +131,10 @@ const App=()=>{
                 logout
            </button>
            </div>
-            <Togglable buttonLabel='new note'>
-            <NoteForm 
-            newNote={newNote} 
-            onAddNote={addNote} 
-            onNoteChange={(event)=>handleNoteChange(event)}
+            <Togglable buttonLabel='new note' ref={noteFormRef}>
+            <NoteForm  
+            createNote={addNote} 
+           
         />
             </Togglable>
          </div>
