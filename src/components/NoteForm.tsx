@@ -16,7 +16,10 @@ const NoteForm = ({onNoteChange,newNote,onAddNote}: Props) => {
         onChange={(event)=>onNoteChange(event)}
         
         />
-      <button className='border px-2 py-1 ml-4 rounded bg-blue-500 text-white focus:ring' type='submit'>save</button>
+      <button 
+      className='border px-2 py-1 ml-4 rounded bg-blue-500 text-white focus:ring' type='submit'>
+        save
+      </button>
     </form>
   )
 }

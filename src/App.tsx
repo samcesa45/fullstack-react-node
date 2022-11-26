@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState } from 'react'
 import Note from './components/Note'
 import {Notes, User} from './types/types'
@@ -9,6 +8,7 @@ import Footer from './components/Footer'
 import Login from './pages/Login'
 import { loginService } from './services/login'
 import NoteForm from './components/NoteForm'
+import Togglable from './components/Togglable'
 
 
 
@@ -21,7 +21,7 @@ const App=()=>{
      const [username, setUsername] = useState('')
      const [password, setPassword] = useState('')
      const [user,setUser] = useState<User | null>(null)
-
+     const [loginVisible, setLoginVisible] = useState(false)
      useEffect(()=>{
         noteService.getAll()
         .then(initialNotes=> setNotes(initialNotes))
@@ -118,12 +118,14 @@ const App=()=>{
         <h1 className='font-bold text-2xl my-3'>Notes</h1>
          <Notification message={errorMessage}/>
         { user === null ? 
-        <Login 
+        <Togglable buttonLabel='login'>
+            <Login 
          username={username}
          password={password}
          onNameChange={(event)=>handleNameChange(event)}
          onPasswordChange={(event)=>handlePasswordChange(event)}
          onLogin={(e)=>handleLogin(e)}/>
+        </Togglable>
          :
          <div>
            <div className='flex gap-2'>
@@ -134,11 +136,13 @@ const App=()=>{
                 logout
            </button>
            </div>
+            <Togglable buttonLabel='new note'>
             <NoteForm 
             newNote={newNote} 
             onAddNote={addNote} 
             onNoteChange={(event)=>handleNoteChange(event)}
         />
+            </Togglable>
          </div>
         }
         <div>
