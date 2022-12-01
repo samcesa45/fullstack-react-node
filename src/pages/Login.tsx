@@ -11,7 +11,7 @@ type Props = {
 const Login = ({onLogin,username,password,onNameChange,onPasswordChange}: Props) => {
   return (
     <div className='px-16'>
-        <form action="" onSubmit={onLogin}>
+        <form  onSubmit={onLogin}>
             <div>
                 <label htmlFor="username">Username</label>
                 <input 
