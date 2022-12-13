@@ -31,7 +31,7 @@ const App = () => {
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
-    if (loggedUserJSON) {
+    if (loggedUserJSON != null) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       noteService.setToken(user.token)
@@ -42,12 +42,14 @@ const App = () => {
 
   const toggleImportanceOf = (id: string) => {
     const note = notes.find(n => n.id === id)
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const updatedNote = { ...note, important: !note?.important }
 
     noteService.update(id, updatedNote).then(returnedNote => {
       setNotes(notes.map(note => note.id !== id ? note : returnedNote))
     })
-      .catch(error => {
+      .catch(_error => {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         setErrorMessage(`Note '${note?.content}' was already removed from server`)
 
         setTimeout(() => {
@@ -75,7 +77,7 @@ const App = () => {
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value)
   }
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     try {
       const user = await loginService.login({
@@ -112,11 +114,12 @@ const App = () => {
             password={password}
             onNameChange={(event) => handleNameChange(event)}
             onPasswordChange={(event) => handlePasswordChange(event)}
-            onLogin={ handleLogin}/>
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onLogin={handleLogin}/>
         </Togglable>
         : <div>
           <div className='flex gap-2'>
-            <p>{user.name} logged-in </p>
+            <p>{user?.name} logged-in </p>
             <button
               className='bg-gray-200  px-2 py-1 rounded capitalize mb-4'
               onClick={logout}>
@@ -125,6 +128,7 @@ const App = () => {
           </div>
           <Togglable buttonLabel='new note' ref={noteFormRef}>
             <NoteForm
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               createNote={addNote}
 
             />

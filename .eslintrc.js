@@ -1,57 +1,56 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true
+  'env': {
+    'browser': true,
+    'es2021': true,
+    'jest/globals':true
   },
-  extends: [
+  'extends': [
+    'eslint:recommended',
     'plugin:react/recommended',
-    'standard-with-typescript'
+    'plugin:@typescript-eslint/recommended'
   ],
-  overrides: [
-   {
-    files:['*.ts', '*.tsx']
-   }
+  'overrides': [
   ],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project:['./tsconfig.json']
+  'parser': '@typescript-eslint/parser',
+  'parserOptions': {
+    'ecmaVersion': 'latest',
+    'sourceType': 'module'
   },
-  plugins: [
-    'react'
+  'plugins': [
+    'react','jest',
+    '@typescript-eslint'
   ],
-  rules: {
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "indent":[
-      "error",
+  'rules': {
+    'indent':[
+      'error',
       2
     ],
-    "linebreak-style":[
-      "error",
-      "unix"
+    'linebreak-style':[
+      'error',
+      'unix'
     ],
-    "quotes":[
-      "error",
-      "single"
+    'quotes':[
+      'error',
+      'single'
     ],
-    "semi":[
-      "error",
-      "never"
+    'semi':[
+      'error',
+      'never'
     ],
-    "eqeqeq":"error",
-    "no-trailing-spaces":"error",
-    "object-curly-spacing":[
-      "error","always"
+    'eqeqeq':'error',
+    'no-trailing-spaces':'error',
+    'object-curly-spacing':[
+      'error','always'
     ],
-    "arrow-spacing":[
-      "error",{"before":true,"after":true}
+    'arrow-spacing':[
+      'error',{ 'before':true,'after':true }
     ],
-    "no-console":0,
-    "react/react-in-jsx-scope":"off"
+    'no-console':0,
+    'react/react-in-jsx-scope':'off'
   },
-  "settings":{
-    "react":{
-      "version":"detect"
+  'settings':{
+    'react':{
+      'version':'detect'
     }
   }
 }

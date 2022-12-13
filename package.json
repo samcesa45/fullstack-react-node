@@ -5,7 +5,6 @@
   "proxy": "http://localhost:8000",
   "dependencies": {
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.62",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
@@ -20,7 +19,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "tsc:check":"tsc --noEmit",
     "server": "json-server -p3002 --watch db.json",
+    "cypress:open": "cypress open",
     "eslint": "eslint ."
   },
   "eslintConfig": {
@@ -45,10 +46,14 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@types/node": "^18.11.14",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "autoprefixer": "^10.4.12",
+    "cypress": "^12.0.2",
+    "cypress-each": "^1.13.1",
     "eslint": "^8.28.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.5.1",
     "eslint-plugin-promise": "^6.1.1",
