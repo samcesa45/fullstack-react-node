@@ -1,0 +1,6 @@
+{
+    "env": {
+      "cypress/globals": true
+    },
+    "extends": ["plugin:chai-friendly/recommended"]
+  }

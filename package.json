@@ -19,9 +19,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "tsc:check":"tsc --noEmit",
+    "tsc:check": "tsc --noEmit",
     "server": "json-server -p3002 --watch db.json",
     "cypress:open": "cypress open",
+    "test:e2e":"cypress run",
     "eslint": "eslint ."
   },
   "eslintConfig": {
@@ -53,6 +54,7 @@
     "cypress-each": "^1.13.1",
     "eslint": "^8.28.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.5.1",

@@ -10,9 +10,9 @@ const Note = ({ note, toggleImportance }: INote) => {
     : 'make important'
 
   return (
-    <li className="mt-2 note" key={note.id}>{
-      note.content}
-    <button className="px-2 border rounded text-white bg-blue-500" onClick={() => toggleImportance(note.id)}>{label}</button>
+    <li className="mt-2 note" key={note.id}>
+      <span>{note.content}</span>
+      <button className="px-2 border rounded text-white bg-blue-500" onClick={() => toggleImportance(note.id)}>{label}</button>
     </li>
   )
 }

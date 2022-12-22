@@ -12,7 +12,7 @@ export type IParts={
     exercises:number,
     id:number
 }
- 
+
 
 
 
@@ -21,9 +21,9 @@ export type ICourses={
     id:number,
     name:string,
     parts: IParts[],
-   
-    
-} 
+
+
+}
 
 export type IPersons={
     name:string,

@@ -5,13 +5,13 @@ type IContent={
    exercises:number
 }
 
-const Content=({name,exercises}:IContent)=>{
-    
+const Content=({ name,exercises }:IContent) => {
+
   return (
-      <>
-        <p>{name} {exercises}</p>
-      </>
-    )
+    <>
+      <p>{name} {exercises}</p>
+    </>
+  )
 }
 
 

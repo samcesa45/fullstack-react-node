@@ -27,11 +27,13 @@ const NoteForm = ({ createNote }: Props) => {
       <input
         className='px-2 border py-1 rounded focus:outline-none focus:ring formDIv'
         placeholder='type here...'
+        id='new-note'
         value={newNote}
         onChange={handleNoteChange}
 
       />
       <button
+        id='save'
         className='border px-2 py-1 ml-4 rounded bg-blue-500 text-white focus:ring' type='submit'>
         save
       </button>

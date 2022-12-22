@@ -31,7 +31,7 @@ const App = () => {
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
-    if (loggedUserJSON != null) {
+    if (loggedUserJSON !== null) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       noteService.setToken(user.token)
@@ -48,6 +48,7 @@ const App = () => {
     noteService.update(id, updatedNote).then(returnedNote => {
       setNotes(notes.map(note => note.id !== id ? note : returnedNote))
     })
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .catch(_error => {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         setErrorMessage(`Note '${note?.content}' was already removed from server`)
@@ -61,7 +62,7 @@ const App = () => {
 
   const addNote = async (noteObject: object) => {
     try {
-      if (noteFormRef.current != null) {
+      if (noteFormRef.current !== null) {
         noteFormRef.current.toggleVisibility()
       }
       const returnedNote = await noteService.create(noteObject)
@@ -92,7 +93,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('Wrong credentials')
+      setErrorMessage('wrong credentials')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)

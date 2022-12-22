@@ -37,7 +37,7 @@ const Login = ({ onLogin, username, password, onNameChange, onPasswordChange }: 
           />
         </div>
         <div>
-          <button type='submit' className='px-2 py-1  rounded bg-blue-500 text-white'>Login</button>
+          <button type='submit' id='login-button' className='px-2 py-1  rounded bg-blue-500 text-white'>Login</button>
         </div>
       </form>
     </div>
